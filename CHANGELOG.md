@@ -1,3 +1,9 @@
+## v1.9.4
+* fix: mock script断言脚本不能执行的问题
+
+## v1.9.3
+* fix: fixed_sandbox_bug 沙盒漏洞
+
 ## v1.9.2
 * fix: 修复高级 mock 无效的bug
 * opti: 对登录 email 空格的过滤
