@@ -107,7 +107,7 @@ class exportSwaggerController extends baseController {
                 info: {
                     title: curProject.name,
                     version: 'last', // last version
-                    description: curProject.desc
+                    description: curProject.desc ? curProject.desc : ""
                 },
                 //host: "",             // No find any info of host in this point :-)
                 basePath: curProject.basepath ? curProject.basepath : '/', //default base path is '/'(root)
@@ -116,7 +116,7 @@ class exportSwaggerController extends baseController {
                     list.forEach(t => {
                         tagArray.push({
                             name: t.name,
-                            description: t.desc
+                            description: t.desc ? t.desc : ""
                             /*externalDocs:{
                                 descroption:"",
                                 url:""
@@ -140,7 +140,10 @@ class exportSwaggerController extends baseController {
                                 let apiItem = {};
                                 apiItem['tags'] = [aptTag.name];
                                 apiItem['summary'] = api.title;
-                                apiItem['description'] = api.markdown;
+                                // description为空时不输出，否则会导致swagger格式不标准
+                                if(api.markdown != null){
+                                    apiItem['description'] = api.markdown;
+                                }
                                 switch (api.req_body_type) {
                                     case 'form':
                                     case 'file':
@@ -177,7 +180,7 @@ class exportSwaggerController extends baseController {
                                         paramArray.push({
                                             name: p.name,
                                             in: 'path',
-                                            description: p.desc,
+                                            description: p.desc ? p.desc : "",
                                             required: true, //swagger path parameters required proprety must be always true,
                                             type: 'string' //always be type string
                                         });
@@ -188,7 +191,7 @@ class exportSwaggerController extends baseController {
                                             name: p.name,
                                             in: 'query',
                                             required: Number(p.required) === 1,
-                                            description: p.desc,
+                                            description: p.desc ? p.desc : "",
                                             type: 'string' //always be type string
                                         });
                                     }
@@ -201,7 +204,7 @@ class exportSwaggerController extends baseController {
                                                         name: p.name,
                                                         in: 'formData',
                                                         required: Number(p.required) === 1,
-                                                        description: p.desc,
+                                                        description: p.desc ? p.desc : "",
                                                         type: p.type === 'text' ? 'string' : 'file' //in this time .formData type have only text or file
                                                     });
                                                 }
@@ -215,7 +218,7 @@ class exportSwaggerController extends baseController {
                                                         paramArray.push({
                                                             name: 'root',
                                                             in: 'body',
-                                                            description: jsonParam.description,
+                                                            description: jsonParam.description ? jsonParam.description : "",
                                                             schema: jsonParam //as same as swagger's format
                                                         });
                                                     }
@@ -227,7 +230,7 @@ class exportSwaggerController extends baseController {
                                                 paramArray.push({
                                                     name: 'upfile',
                                                     in: 'formData', //use formData
-                                                    description: api.req_body_other,
+                                                    description: api.req_body_other ? api.req_body_other : "",
                                                     type: 'file'
                                                 });
                                                 break;
