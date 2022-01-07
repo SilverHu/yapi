@@ -586,8 +586,7 @@ ${JSON.stringify(schema, null, 2)}`)
     // script 是断言
     if (script) {
       logs.push('执行脚本:' + script)
-      // result = await sandboxFn(context, script);
-      result = yapi.commons.sandbox(context, script);
+      result = await sandboxFn(context, script);
     }
     result.logs = logs;
     return yapi.commons.resReturn(result);
