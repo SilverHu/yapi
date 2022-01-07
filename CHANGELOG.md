@@ -1,6 +1,7 @@
 ## fork_master
 
 * perf: 导出为swagger2时，因为description为null，导致导出的swaggerjson文件不标准
+* docs: 请求头可以选择“必需”和“非必需”
 
 ## [1.10.2](https://github.com/YMFE/yapi/compare/v1.10.1...v1.10.2) (2021-10-13)
 
